@@ -1,0 +1,17 @@
+{
+  "name": "ar-rakshak",
+  "version": "1.0.0",
+  "description": "AR-RAKSHAK SIH 2026 safety training MVP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test tests/ tests/e2e/worker-flow.spec.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.0"
+  }
+}
