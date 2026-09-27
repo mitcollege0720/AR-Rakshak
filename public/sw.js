@@ -1,5 +1,5 @@
 // AR Rakshak PWA Service Worker for Offline Operation
-const CACHE_NAME = "ar-rakshak-v2.0.0";
+const CACHE_NAME = "ar-rakshak-v2.0.1";
 
 const ASSETS_TO_CACHE = [
   "/",
@@ -63,18 +63,18 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Stale-while-revalidate for application assets
+  if (event.request.method !== "GET") return;
+
+  // Network-first for application assets so code updates apply immediately; cache is the offline fallback
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request).then((networkResponse) => {
+    fetch(event.request)
+      .then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const clone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
         return networkResponse;
-      }).catch(() => cachedResponse);
-
-      return cachedResponse || fetchPromise;
-    })
+      })
+      .catch(() => caches.match(event.request))
   );
 });

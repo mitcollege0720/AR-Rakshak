@@ -4,14 +4,14 @@ const PassportManager = {
     CameraManager.stopCamera();
     const el = document.getElementById("app");
     if (!el) return;
-    renderLoading(el, "Loading your Safety Passport...");
+    renderLoading(el, "Loading your profile...");
     try {
       const [certs, achievements, simProgress] = await Promise.all([this.getCerts(), this.getAchievements(), this.getSimProgress()]);
       const user = AuthManager.isAuthenticated() ? AuthManager.getUser() : WorkerManager.cachedWorker || { fullName: "Demo Worker", id: "W001" };
       const xp = achievements.reduce((s, a) => s + (a.xp_value || 0), 0);
       const completed = simProgress.filter(s => s.completed).length;
       el.innerHTML = `<div class="container">
-        <div class="page-header"><h1>🛂 Safety Passport</h1><p class="muted">Your digital safety identity, training records, and certifications.</p></div>
+        <div class="page-header"><h1>My Profile</h1><p class="muted">Your digital safety identity, training records, and certifications.</p></div>
         <div class="card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
           <div style="width:64px;height:64px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:32px;">👷</div>
           <div style="flex:1;"><h2>${escapeHtml(user.fullName || user.name || "Worker")}</h2><p class="muted">${escapeHtml(user.email || user.id || "")}</p>
@@ -28,7 +28,7 @@ const PassportManager = {
         <div class="card"><h3>🏆 Achievements & Badges</h3>${achievements.length === 0 ? '<p class="muted">No achievements earned yet.</p>' : `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">${achievements.map(a => `<div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-card);border-radius:8px;"><div style="font-size:28px;">🏆</div><div><b>${escapeHtml(a.achievement_name)}</b><br><span class="muted small">+${a.xp_value} XP</span></div></div>`).join("")}</div>`}</div>
         <div class="card"><h3>📊 Training Progress</h3>${simProgress.length === 0 ? '<p class="muted">No training simulations completed yet.</p>' : simProgress.map(s => `<div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><b>${escapeHtml(s.scenario_name)}</b><span class="badge ${s.completed ? 'badge-success' : 'badge-warning'} small">${s.completed ? 'Completed' : 'In Progress'}</span></div><div class="progress"><div style="width:${s.safety_score}%"></div></div><span class="muted small">Score: ${s.safety_score}% • ${escapeHtml(s.difficulty)}</span></div>`).join("")}</div>
       </div>`;
-    } catch(e) { renderErrorState(el, "Failed to load Safety Passport.", () => PassportManager.renderView()); }
+    } catch(e) { renderErrorState(el, "Failed to load your profile.", () => PassportManager.renderView()); }
   },
 
   renderCertItem(cert) {
