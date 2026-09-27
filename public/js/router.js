@@ -17,10 +17,10 @@ const Router = {
     const hash = params && Object.keys(params).length > 0
       ? `#/${route}?${new URLSearchParams(params).toString()}`
       : `#/${route}`;
-    if (window.location.hash !== hash) {
-      // Some embedding environments (e.g. the v0 preview) patch history and try to
-      // resolve the hash as a CSS selector, which throws for "#/route". Routing
-      // must still work, so URL syncing is best-effort.
+    // Embedded previews (e.g. the v0 iframe) patch history and resolve the hash as a
+    // CSS selector, which logs errors for "#/route". Only sync the URL when top-level.
+    const isEmbedded = window.self !== window.top;
+    if (!isEmbedded && window.location.hash !== hash) {
       try {
         history.pushState(null, "", hash);
       } catch (err) {
