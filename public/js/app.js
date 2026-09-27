@@ -506,7 +506,11 @@ async function initApp() {
     // Initialize router - all protection logic is handled by individual route handlers
     Router.init();
 
-    if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
+    // Embedded previews must always run fresh code, so drop any service worker and its caches there.
+    if ("serviceWorker" in navigator && window.self !== window.top) {
+      navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister())).catch(() => {});
+      if (window.caches) caches.keys().then(keys => keys.forEach(k => caches.delete(k))).catch(() => {});
+    } else if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
       navigator.serviceWorker.register("/sw.js").then(() => console.log("AR Rakshak Service Worker registered.")).catch(err => console.warn("ServiceWorker skipped:", err.message));
     }
   } catch (err) {
