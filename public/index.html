@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0a192f">
   <meta name="description" content="AR Rakshak Safety System - AI-Powered Safety and Emergency Response for High-Risk Industries">
   <title>AR Rakshak Safety System</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=3">
 </head>
 <body>
   <a href="#app" class="skip-link">Skip to main content</a>
@@ -42,58 +42,68 @@
 
   <nav class="bottom-nav" aria-label="Primary Navigation">
     <button data-nav="home" onclick="Router.navigate('home')" aria-label="Home">
-      <span aria-hidden="true">⌂</span><span>Home</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span class="nav-label">Home</span>
     </button>
     <button data-nav="training" onclick="Router.navigate('training')" aria-label="Training">
-      <span aria-hidden="true">◈</span><span>Training</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 10v6"/><path d="M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      <span class="nav-label">Training</span>
     </button>
     <button data-nav="simulator" onclick="Router.navigate('simulator')" aria-label="Simulator">
-      <span aria-hidden="true">🎮</span><span>Simulator</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="m10 7 5 3-5 3z"/></svg>
+      <span class="nav-label">Simulator</span>
     </button>
     <button data-nav="gps" onclick="Router.navigate('gps')" aria-label="GPS Tracker">
-      <span aria-hidden="true">📡</span><span>GPS</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+      <span class="nav-label">GPS</span>
     </button>
-    <button data-nav="sos" onclick="Router.navigate('sos')" aria-label="Emergency SOS">
-      <span aria-hidden="true">🆘</span><span>SOS</span>
+    <button data-nav="sos" class="nav-sos" onclick="Router.navigate('sos')" aria-label="Emergency SOS">
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg>
+      <span class="nav-label">SOS</span>
     </button>
     <button data-nav="report" onclick="Router.navigate('report')" aria-label="Report Hazard">
-      <span aria-hidden="true">⚠</span><span>Report</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <span class="nav-label">Report</span>
     </button>
     <button data-nav="assistant" onclick="Router.navigate('assistant')" aria-label="Rakshak Assistant">
-      <span aria-hidden="true">🤖</span><span>Assistant</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+      <span class="nav-label">Assistant</span>
     </button>
     <button data-nav="checklist" onclick="Router.navigate('checklist')" aria-label="Safety Checklist">
-      <span aria-hidden="true">✅</span><span>Checklist</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+      <span class="nav-label">Checklist</span>
     </button>
-    <button data-nav="passport" onclick="Router.navigate('passport')" aria-label="Safety Passport">
-      <span aria-hidden="true">🛂</span><span>Passport</span>
+    <button data-nav="passport" onclick="Router.navigate('passport')" aria-label="My Profile">
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>
+      <span class="nav-label">My Profile</span>
     </button>
     <button data-nav="supervisor" onclick="Router.navigate('supervisor')" aria-label="Supervisor Dashboard" id="navSupervisor" style="display:none;">
-      <span aria-hidden="true">▤</span><span>Supervisor</span>
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+      <span class="nav-label">Supervisor</span>
     </button>
   </nav>
 
-  <script src="/js/config.js"></script>
+  <script src="/js/config.js?v=3"></script>
   <script src="/js/i18n.js"></script>
-  <script src="/js/theme.js"></script>
-  <script src="/js/router.js"></script>
-  <script src="/js/auth.js"></script>
-  <script src="/js/storage.js"></script>
-  <script src="/js/api.js"></script>
-  <script src="/js/camera.js"></script>
-  <script src="/js/ui.js"></script>
-  <script src="/js/worker.js"></script>
-  <script src="/js/training.js"></script>
-  <script src="/js/incident.js"></script>
-  <script src="/js/dashboard.js"></script>
-  <script src="/js/certificate.js"></script>
-  <script src="/js/gps.js"></script>
-  <script src="/js/sos.js"></script>
-  <script src="/js/assistant.js"></script>
-  <script src="/js/checklist.js"></script>
-  <script src="/js/passport.js"></script>
-  <script src="/js/simulator.js"></script>
-  <script src="/js/analytics.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="/js/theme.js?v=3"></script>
+  <script src="/js/router.js?v=3"></script>
+  <script src="/js/auth.js?v=3"></script>
+  <script src="/js/storage.js?v=3"></script>
+  <script src="/js/api.js?v=3"></script>
+  <script src="/js/camera.js?v=3"></script>
+  <script src="/js/ui.js?v=3"></script>
+  <script src="/js/worker.js?v=3"></script>
+  <script src="/js/training.js?v=3"></script>
+  <script src="/js/incident.js?v=3"></script>
+  <script src="/js/dashboard.js?v=3"></script>
+  <script src="/js/certificate.js?v=3"></script>
+  <script src="/js/gps.js?v=3"></script>
+  <script src="/js/sos.js?v=3"></script>
+  <script src="/js/assistant.js?v=3"></script>
+  <script src="/js/checklist.js?v=3"></script>
+  <script src="/js/passport.js?v=3"></script>
+  <script src="/js/simulator.js?v=3"></script>
+  <script src="/js/analytics.js?v=3"></script>
+  <script src="/js/app.js?v=3"></script>
 </body>
 </html>
