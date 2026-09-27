@@ -17,15 +17,21 @@ const Router = {
     const hash = params && Object.keys(params).length > 0
       ? `#/${route}?${new URLSearchParams(params).toString()}`
       : `#/${route}`;
-    // pushState avoids the browser/preview treating "#/route" as an element anchor selector
     if (window.location.hash !== hash) {
-      history.pushState(null, "", hash);
+      // Some embedding environments (e.g. the v0 preview) patch history and try to
+      // resolve the hash as a CSS selector, which throws for "#/route". Routing
+      // must still work, so URL syncing is best-effort.
+      try {
+        history.pushState(null, "", hash);
+      } catch (err) {
+        // URL not updated; in-memory routing continues below.
+      }
     }
-    this.handleRoute();
+    this.handleRoute(hash);
   },
 
-  handleRoute() {
-    const hash = window.location.hash.slice(1);
+  handleRoute(hashOverride) {
+    const hash = (hashOverride ?? window.location.hash).replace(/^#/, "");
     const parts = hash.split("?");
     const routePath = parts[0].replace(/^\//, "") || "home";
     const queryStr = parts[1] || "";
