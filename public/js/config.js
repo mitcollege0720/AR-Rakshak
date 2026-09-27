@@ -6,12 +6,12 @@ let supabase = null;
 try {
   if (typeof window !== "undefined" && window.supabase) {
     supabase = window.supabase;
-  } else {
+  } else if (typeof window !== "undefined" && typeof require !== "undefined") {
     const { createClient } = require("@supabase/supabase-js");
     supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
     });
-    if (typeof window !== "undefined") window.supabase = supabase;
+    window.supabase = supabase;
   }
 } catch (e) {
   console.warn("Supabase client init deferred:", e.message);

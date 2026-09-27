@@ -447,45 +447,70 @@ function registerRoutes() {
 
 // === APP INIT ===
 async function initApp() {
-  ThemeManager.init();
-  updateOnlineStatus();
-  await StorageLayer.init();
+  try {
+    ThemeManager.init();
+    updateOnlineStatus();
+    await StorageLayer.init();
 
-  await Promise.all([TrainingManager.loadModules(), WorkerManager.getCurrentWorker()]);
+    // Load modules and worker in parallel — these have graceful fallbacks
+    await Promise.all([
+      TrainingManager.loadModules().catch(() => {}),
+      WorkerManager.getCurrentWorker().catch(() => {})
+    ]);
 
-  if (typeof GPSManager !== "undefined") GPSManager.init();
-  if (typeof ChecklistManager !== "undefined") ChecklistManager.init();
-  if (typeof RakshakAssistant !== "undefined") RakshakAssistant.init();
+    if (typeof GPSManager !== "undefined") GPSManager.init();
+    if (typeof ChecklistManager !== "undefined") ChecklistManager.init();
+    if (typeof RakshakAssistant !== "undefined") RakshakAssistant.init();
 
-  await AuthManager.init();
+    await AuthManager.init().catch(() => {});
 
-  AuthManager.onAuthChange = (event) => {
+    AuthManager.onAuthChange = (event) => {
+      updateUserMenu();
+      if (event === "SIGNED_IN" || event === "INITIAL_SESSION") {
+        const r = Router.getCurrentRoute();
+        if (r === "login" || r === "register" || r === "forgot-password" || r === "landing") {
+          Router.navigate("home");
+        }
+      }
+    };
     updateUserMenu();
-    if (event === "SIGNED_IN" || event === "INITIAL_SESSION") {
-      const r = Router.getCurrentRoute();
-      if (r === "login" || r === "register" || r === "forgot-password" || r === "landing") {
-        Router.navigate("home");
+
+    registerRoutes();
+
+    const langBtn = document.getElementById("langToggleBtn");
+    if (langBtn) { const l = SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage); langBtn.textContent = l ? l.short : "EN"; }
+
+    // Always init the router first so hashchange listeners are active
+    Router.init();
+
+    // Then redirect to landing if not authenticated and on a protected route
+    if (!AuthManager.isAuthenticated()) {
+      const currentRoute = Router.getCurrentRoute();
+      if (currentRoute !== "login" && currentRoute !== "register" &&
+          currentRoute !== "forgot-password" && currentRoute !== "landing") {
+        Router.navigate("landing");
       }
     }
-  };
-  updateUserMenu();
 
-  registerRoutes();
-
-  const langBtn = document.getElementById("langToggleBtn");
-  if (langBtn) { const l = SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage); langBtn.textContent = l ? l.short : "EN"; }
-
-  // Determine initial route
-  const hash = window.location.hash.slice(1).replace(/^\//, "") || "home";
-  if (!AuthManager.isAuthenticated() && hash !== "login" && hash !== "register" && hash !== "forgot-password" && hash !== "landing") {
-    Router.navigate("landing");
-  } else {
-    Router.init();
-  }
-
-  if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
-    navigator.serviceWorker.register("/sw.js").then(() => console.log("AR Rakshak Service Worker registered.")).catch(err => console.warn("ServiceWorker skipped:", err.message));
+    if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
+      navigator.serviceWorker.register("/sw.js").then(() => console.log("AR Rakshak Service Worker registered.")).catch(err => console.warn("ServiceWorker skipped:", err.message));
+    }
+  } catch (err) {
+    console.error("AR Rakshak init error:", err);
+    // Render a fallback so the screen is never blank
+    if (appEl) {
+      appEl.innerHTML = `<div class="container"><div class="card error-card" role="alert"><h2>Unable to start AR Rakshak</h2><p class="muted">${escapeHtml(err.message || "Unknown error")}</p><button class="btn" onclick="location.reload()">Reload</button></div></div>`;
+    }
   }
 }
+
+// Global error handler to prevent blank screens from uncaught errors
+window.addEventListener("error", (e) => {
+  console.error("Uncaught error:", e.error || e.message);
+});
+
+window.addEventListener("unhandledrejection", (e) => {
+  console.error("Unhandled promise rejection:", e.reason);
+});
 
 initApp();
