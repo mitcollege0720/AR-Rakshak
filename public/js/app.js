@@ -537,3 +537,4 @@ window.addEventListener("unhandledrejection", (e) => {
 });
 
 initApp();
+}
