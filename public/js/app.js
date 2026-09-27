@@ -178,7 +178,7 @@ async function loadWorkerStats() {
 function showTraining() {
   CameraManager.stopCamera();
   updateNavButtons("training");
-  shell(`<div class="section-title"><div><h1>📚 ${t("availableModules")}</h1><p class="muted">Select a module to view safety guidelines, complete the AR inspection, and take the qualification quiz.</p></div></div><div id="trainingModuleList"></div>`);
+  shell(`<div class="section-title"><div><h1>📚 ${t("availableModules")}</h1><p class="muted">Select a module to view safety guidelines, complete the AR inspection, and take the qualification q[...]
   TrainingManager.renderModulesList("trainingModuleList");
 }
 
@@ -206,7 +206,7 @@ function showScan() {
     </div>
     <div class="section-title"><h3>Quick-Select Demo Safety Zones</h3></div>
     <div class="grid">
-      ${modules.map(m => `<button class="card zone-select-btn" onclick="TrainingManager.openModule('${escapeHtml(m.id)}')"><div class="zone-badge">📍 ${escapeHtml(m.zone)}</div><b>${escapeHtml(m.title)}</b><div class="muted small">${escapeHtml(m.sector)} • ${escapeHtml(m.duration)}</div></button>`).join("")}
+      ${modules.map(m => `<button class="card zone-select-btn" onclick="TrainingManager.openModule('${escapeHtml(m.id)}')"><div class="zone-badge">📍 ${escapeHtml(m.zone)}</div><b>${escapeHtml([...]
     </div>
   `);
 }
@@ -503,17 +503,8 @@ async function initApp() {
     const langBtn = document.getElementById("langToggleBtn");
     if (langBtn) { const l = SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage); langBtn.textContent = l ? l.short : "EN"; }
 
-      // Initialize router AFTER auth is ready to avoid redirect loop
+    // Initialize router - all protection logic is handled by individual route handlers
     Router.init();
-
-    // Then redirect to landing if not authenticated and on a protected route
-    if (!AuthManager.isAuthenticated()) {
-      const currentRoute = Router.getCurrentRoute();
-      if (currentRoute !== "login" && currentRoute !== "register" &&
-          currentRoute !== "forgot-password" && currentRoute !== "landing") {
-        Router.navigate("landing");
-      }
-    }
 
     if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
       navigator.serviceWorker.register("/sw.js").then(() => console.log("AR Rakshak Service Worker registered.")).catch(err => console.warn("ServiceWorker skipped:", err.message));
@@ -522,7 +513,7 @@ async function initApp() {
     console.error("AR Rakshak init error:", err);
     // Render a fallback so the screen is never blank
     if (appEl) {
-      appEl.innerHTML = `<div class="container"><div class="card error-card" role="alert"><h2>Unable to start AR Rakshak</h2><p class="muted">${escapeHtml(err.message || "Unknown error")}</p><button class="btn" onclick="location.reload()">Reload</button></div></div>`;
+      appEl.innerHTML = `<div class="container"><div class="card error-card" role="alert"><h2>Unable to start AR Rakshak</h2><p class="muted">${escapeHtml(err.message || "Unknown error")}</p><button class="btn" onclick="location.reload()">Retry</button></div></div>`;
     }
   }
 }
