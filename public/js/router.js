@@ -17,21 +17,15 @@ const Router = {
     const hash = params && Object.keys(params).length > 0
       ? `#/${route}?${new URLSearchParams(params).toString()}`
       : `#/${route}`;
-    // Embedded previews (e.g. the v0 iframe) patch history and resolve the hash as a
-    // CSS selector, which logs errors for "#/route". Only sync the URL when top-level.
-    const isEmbedded = window.self !== window.top;
-    if (!isEmbedded && window.location.hash !== hash) {
-      try {
-        history.pushState(null, "", hash);
-      } catch (err) {
-        // URL not updated; in-memory routing continues below.
-      }
+    if (window.location.hash === hash) {
+      this.handleRoute();
+    } else {
+      window.location.hash = hash;
     }
-    this.handleRoute(hash);
   },
 
-  handleRoute(hashOverride) {
-    const hash = (hashOverride ?? window.location.hash).replace(/^#/, "");
+  handleRoute() {
+    const hash = window.location.hash.slice(1);
     const parts = hash.split("?");
     const routePath = parts[0].replace(/^\//, "") || "home";
     const queryStr = parts[1] || "";

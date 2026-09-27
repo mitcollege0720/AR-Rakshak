@@ -178,7 +178,7 @@ async function loadWorkerStats() {
 function showTraining() {
   CameraManager.stopCamera();
   updateNavButtons("training");
-  shell(`<div class="section-title"><div><h1>📚 ${t("availableModules")}</h1><p class="muted">Select a module to view safety guidelines, complete the AR inspection, and take the qualification quiz.</p></div></div><div id="trainingModuleList"></div>`);
+  shell(`<div class="section-title"><div><h1>📚 ${t("availableModules")}</h1><p class="muted">Select a module to view safety guidelines, complete the AR inspection, and take the qualification q[...]
   TrainingManager.renderModulesList("trainingModuleList");
 }
 
@@ -206,7 +206,7 @@ function showScan() {
     </div>
     <div class="section-title"><h3>Quick-Select Demo Safety Zones</h3></div>
     <div class="grid">
-      ${modules.map(m => `<button class="card zone-select-btn" onclick="TrainingManager.openModule('${escapeHtml(m.id)}')"><div class="zone-badge">📍 ${escapeHtml(m.zone)}</div><b>${escapeHtml(m.title)}</b><div class="muted small">${escapeHtml(m.sector)} • ${escapeHtml(m.duration)}</div></button>`).join("")}
+      ${modules.map(m => `<button class="card zone-select-btn" onclick="TrainingManager.openModule('${escapeHtml(m.id)}')"><div class="zone-badge">📍 ${escapeHtml(m.zone)}</div><b>${escapeHtml([...]
     </div>
   `);
 }
@@ -506,11 +506,7 @@ async function initApp() {
     // Initialize router - all protection logic is handled by individual route handlers
     Router.init();
 
-    // Embedded previews must always run fresh code, so drop any service worker and its caches there.
-    if ("serviceWorker" in navigator && window.self !== window.top) {
-      navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister())).catch(() => {});
-      if (window.caches) caches.keys().then(keys => keys.forEach(k => caches.delete(k))).catch(() => {});
-    } else if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
+    if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
       navigator.serviceWorker.register("/sw.js").then(() => console.log("AR Rakshak Service Worker registered.")).catch(err => console.warn("ServiceWorker skipped:", err.message));
     }
   } catch (err) {
