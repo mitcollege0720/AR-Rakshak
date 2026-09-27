@@ -3,16 +3,23 @@
 const SupervisorDashboard = {
   async render(silent = false) {
     CameraManager.stopCamera();
+
     const appEl = document.getElementById("app");
+
+    // Only show the full-screen loading spinner on the initial load.
+    // Quick refreshes (e.g. after resolving an incident) skip it so the
+    // screen doesn't flash/flicker.
     if (!silent) {
       renderLoading(appEl, "Loading supervisor metrics and compliance records...");
     }
+
     try {
       const [stats, workers, incidents] = await Promise.all([
         API.get("/api/dashboard"),
         API.get("/api/workers"),
         API.get("/api/incidents")
       ]);
+
       this.renderView(stats, workers, incidents);
     } catch (err) {
       renderErrorState(appEl, "Failed to load supervisor dashboard data. Please check connection.", () => {
@@ -143,6 +150,8 @@ const SupervisorDashboard = {
     try {
       await API.patch(`/api/incidents/${incidentId}/status`, { status: "Resolved" });
       showToast(`Incident ${incidentId} marked as Resolved`, "success");
+      // Silent refresh: re-fetch and re-render data without the full-screen
+      // loading spinner, so the dashboard doesn't flash/flicker.
       this.render(true);
     } catch (err) {
       showToast(err.message || "Failed to update incident status", "error");

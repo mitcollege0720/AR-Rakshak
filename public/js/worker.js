@@ -41,7 +41,15 @@ const WorkerManager = {
     localStorage.setItem("arr_worker", worker.id);
     StorageLayer.setCache("current_worker", worker);
     showToast(`Active worker set to ${worker.name} (${worker.id})`, "info");
-    if (typeof refreshCurrentView === "function") refreshCurrentView();
+
+    // Refresh whatever screen the user is currently on instead of forcing
+    // navigation to Home (e.g. switching worker from the Supervisor table
+    // should keep the supervisor on the Supervisor Dashboard).
+    if (typeof refreshCurrentView === "function") {
+      refreshCurrentView();
+    } else if (typeof showHome === "function") {
+      showHome();
+    }
   },
 
   async showWorkerSelectorModal() {

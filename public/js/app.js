@@ -416,6 +416,19 @@ async function handleForgotPassword(e) {
   }
 }
 
+// Language Toggle
+function toggleLang() {
+  const newLang = toggleLanguage();
+  const langBtn = document.getElementById("langToggleBtn");
+  if (langBtn) {
+    langBtn.textContent = newLang === "English" ? "अ / English" : "A / हिन्दी";
+  }
+  showToast(`Language set to ${newLang}`, "info");
+
+  // Re-render whatever view is currently active with the updated language
+  refreshCurrentView();
+}
+
 // === UPDATE USER MENU ===
 function updateUserMenu() {
   const menu = document.getElementById("userMenu");

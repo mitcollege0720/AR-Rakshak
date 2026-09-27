@@ -16,7 +16,7 @@
         "M001": 90,
         "M002": 80
       },
-      "updatedAt": "2026-09-27T13:22:36.916Z"
+      "updatedAt": "2026-09-27T16:47:04.271Z"
     },
     {
       "id": "W002",
@@ -59,6 +59,19 @@
       "scores": {},
       "createdAt": "2026-09-27T13:22:36.905Z",
       "updatedAt": "2026-09-27T13:22:36.905Z"
+    },
+    {
+      "id": "W1528",
+      "name": "Amit Kumar",
+      "language": "Hindi",
+      "role": "Safety Officer",
+      "score": 0,
+      "risk": "New",
+      "completed": 0,
+      "completedModules": [],
+      "scores": {},
+      "createdAt": "2026-09-27T16:47:04.196Z",
+      "updatedAt": "2026-09-27T16:47:04.196Z"
     }
   ],
   "modules": [
@@ -190,6 +203,18 @@
     }
   ],
   "incidents": [
+    {
+      "id": "INC-952A1C",
+      "idempotencyKey": null,
+      "worker": "Demo Worker",
+      "type": "Hazard",
+      "location": "GAS-CHECK",
+      "description": "Gas detector sensor battery low in zone B.",
+      "severity": "High",
+      "status": "Resolved",
+      "createdAt": "2026-09-27T16:47:04.286Z",
+      "updatedAt": "2026-09-27T16:47:04.294Z"
+    },
     {
       "id": "INC-D591B3",
       "idempotencyKey": null,

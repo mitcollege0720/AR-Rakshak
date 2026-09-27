@@ -287,6 +287,10 @@ const TrainingManager = {
     `);
   },
 
+  // Updates only the selected option's styling and the action bar buttons,
+  // instead of tearing down and rebuilding the entire quiz screen. This is
+  // what removes the flicker on the most frequently used interaction in the
+  // app (tapping an answer).
   selectAnswer(qIndex, optIndex) {
     this.answers[qIndex] = optIndex;
 
@@ -297,6 +301,11 @@ const TrainingManager = {
         btn.classList.toggle("selected", isSelected);
         btn.setAttribute("aria-checked", isSelected);
       });
+    } else {
+      // Fallback: if the expected DOM structure isn't present for any
+      // reason, fall back to a full re-render so the UI never gets stuck.
+      this.renderQuizQuestion();
+      return;
     }
 
     const actionBar = document.querySelector(".action-bar");
