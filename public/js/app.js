@@ -503,7 +503,7 @@ async function initApp() {
     const langBtn = document.getElementById("langToggleBtn");
     if (langBtn) { const l = SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage); langBtn.textContent = l ? l.short : "EN"; }
 
-    // Always init the router first so hashchange listeners are active
+      // Initialize router AFTER auth is ready to avoid redirect loop
     Router.init();
 
     // Then redirect to landing if not authenticated and on a protected route
