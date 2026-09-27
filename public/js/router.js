@@ -17,11 +17,11 @@ const Router = {
     const hash = params && Object.keys(params).length > 0
       ? `#/${route}?${new URLSearchParams(params).toString()}`
       : `#/${route}`;
-    if (window.location.hash === hash) {
-      this.handleRoute();
-    } else {
-      window.location.hash = hash;
+    // pushState avoids the browser/preview treating "#/route" as an element anchor selector
+    if (window.location.hash !== hash) {
+      history.pushState(null, "", hash);
     }
+    this.handleRoute();
   },
 
   handleRoute() {
