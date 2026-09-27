@@ -1,2 +1,2 @@
-// AR-RAKSHAK Legacy Script Forwarder
-console.log("AR-RAKSHAK modular architecture loaded via /js/app.js");
+// AR Rakshak Legacy Script Forwarder
+console.log("AR Rakshak modular architecture loaded via /js/app.js");

@@ -22,8 +22,8 @@ const CertificateManager = {
         <div class="certificate-card" id="printableCert">
           <div class="cert-border-inner">
             <div class="cert-header">
-              <div class="cert-logo">🛡️ AR-RAKSHAK</div>
-              <div class="cert-badge">MINISTRY OF MINES & INDUSTRY SAFETY COMPLIANT</div>
+              <div class="cert-logo">🛡️ AR Rakshak</div>
+              <div class="cert-badge">INDUSTRIAL SAFETY COMPLIANT</div>
             </div>
 
             <div class="cert-body">

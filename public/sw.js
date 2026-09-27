@@ -1,11 +1,15 @@
-// AR-RAKSHAK PWA Service Worker for Offline Operation
-const CACHE_NAME = "ar-rakshak-v1.0.1";
+// AR Rakshak PWA Service Worker for Offline Operation
+const CACHE_NAME = "ar-rakshak-v2.0.0";
 
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
   "/css/style.css",
+  "/js/config.js",
   "/js/i18n.js",
+  "/js/theme.js",
+  "/js/router.js",
+  "/js/auth.js",
   "/js/storage.js",
   "/js/api.js",
   "/js/camera.js",
@@ -15,6 +19,13 @@ const ASSETS_TO_CACHE = [
   "/js/incident.js",
   "/js/dashboard.js",
   "/js/certificate.js",
+  "/js/gps.js",
+  "/js/sos.js",
+  "/js/assistant.js",
+  "/js/checklist.js",
+  "/js/passport.js",
+  "/js/simulator.js",
+  "/js/analytics.js",
   "/js/app.js"
 ];
 

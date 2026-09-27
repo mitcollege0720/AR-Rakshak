@@ -11,6 +11,10 @@ function escapeHtml(str) {
 }
 
 function showToast(message, type = "info", duration = 4000) {
+  showToastMsg(message, type, duration);
+}
+
+function showToastMsg(message, type = "info", duration = 4000) {
   let container = document.getElementById("toastContainer");
   if (!container) {
     container = document.createElement("div");
@@ -39,20 +43,24 @@ function showToast(message, type = "info", duration = 4000) {
 
 function renderLoading(container, text = "Loading...") {
   container.innerHTML = `
-    <div class="card loading-card" role="status">
-      <div class="spinner"></div>
-      <p>${escapeHtml(text)}</p>
+    <div class="container">
+      <div class="card loading-card" role="status">
+        <div class="spinner"></div>
+        <p>${escapeHtml(text)}</p>
+      </div>
     </div>
   `;
 }
 
 function renderErrorState(container, message, onRetry = null) {
   container.innerHTML = `
-    <div class="card error-card" role="alert">
-      <div class="error-icon">⚠</div>
-      <h2>Something went wrong</h2>
-      <p class="muted">${escapeHtml(message)}</p>
-      ${onRetry ? `<button class="btn full" onclick="(${onRetry.toString()})()">Try Again</button>` : ""}
+    <div class="container">
+      <div class="card error-card" role="alert">
+        <div class="error-icon">⚠</div>
+        <h2>Something went wrong</h2>
+        <p class="muted">${escapeHtml(message)}</p>
+        ${onRetry ? `<button class="btn full" onclick="(${onRetry.toString()})()">Try Again</button>` : ""}
+      </div>
     </div>
   `;
 }

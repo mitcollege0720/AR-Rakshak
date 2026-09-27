@@ -5,7 +5,7 @@ const healthController = (req, res) => {
   res.json({
     success: true,
     data: {
-      service: "AR-RAKSHAK",
+      service: "AR Rakshak",
       status: "healthy",
       version: "1.0.0",
       timestamp: new Date().toISOString(),

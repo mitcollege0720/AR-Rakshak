@@ -17,7 +17,7 @@ describe("E2E User Journey Test: Worker Full Training & Certification Flow", () 
     const res = await request(app).get("/");
     assert.strictEqual(res.status, 200);
     assert.strictEqual(res.headers["content-type"].includes("text/html"), true);
-    assert.strictEqual(res.text.includes("AR-RAKSHAK"), true);
+    assert.strictEqual(res.text.includes("AR Rakshak"), true);
     assert.strictEqual(res.text.includes("topbar"), true);
     assert.strictEqual(res.text.includes("bottom-nav"), true);
   });

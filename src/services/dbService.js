@@ -255,7 +255,7 @@ class DBService {
       zone: moduleItem.zone,
       score: moduleScore,
       issued: new Date().toISOString().split("T")[0],
-      statement: "Has successfully completed the AR-RAKSHAK safety training simulation and passed the interactive safety assessment.",
+      statement: "Has successfully completed the AR Rakshak safety training simulation and passed the interactive safety assessment.",
       verificationUrl: `/api/certificate/${workerId}/${moduleId}`
     };
   }

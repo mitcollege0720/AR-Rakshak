@@ -38,7 +38,8 @@ const IncidentManager = {
           <div class="form-group">
             <label for="incSeverity">${t("severityLabel")}</label>
             <select id="incSeverity" name="severity" required>
-              <option value="High">🔴 High (Immediate Danger / Stop Work)</option>
+              <option value="Critical">🔴 Critical (Life Threatening / Evacuate)</option>
+              <option value="High">🟠 High (Immediate Danger / Stop Work)</option>
               <option value="Medium" selected>🟡 Medium (Caution / Remediation Needed)</option>
               <option value="Low">🟢 Low (Advisory / Minor Inspection)</option>
             </select>
@@ -62,7 +63,17 @@ const IncidentManager = {
         </div>
       </form>
 
-      <div class="notice card">
+      <div class="form-group">
+        <label for="incSource">Detection Source</label>
+        <select id="incSource" name="source">
+          <option value="manual" selected>Reported by Worker</option>
+          <option value="sensor">Detected by Sensor</option>
+          <option value="camera">Detected by Camera System</option>
+          <option value="demo">Demo / Test Event</option>
+        </select>
+      </div>
+
+      <div class="notice">
         <b>Emergency Protocol:</b> In the event of an active fire, high methane/CO alarm, or severe injury, sound the site alarm horn immediately and evacuate to the designated assembly zone.
       </div>
     `);
@@ -91,12 +102,9 @@ const IncidentManager = {
     }
 
     const idempotencyKey = "INC_IDEM_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+    const source = document.getElementById("incSource")?.value || "manual";
     const incidentPayload = {
-      worker,
-      type,
-      location,
-      severity,
-      description,
+      worker, type, location, severity, description, source,
       idempotencyKey,
       clientTimestamp: new Date().toISOString()
     };

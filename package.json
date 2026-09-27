@@ -1,12 +1,12 @@
 {
   "name": "ar-rakshak",
   "version": "1.0.0",
-  "description": "AR-RAKSHAK SIH 2026 safety training MVP",
+  "description": "AR Rakshak Safety System - Industrial Safety Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node --test tests/ tests/e2e/worker-flow.spec.js"
+    "test": "node --test tests/api.test.js tests/validation.test.js tests/e2e/worker-flow.spec.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",

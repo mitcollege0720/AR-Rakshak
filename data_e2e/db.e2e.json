@@ -1,0 +1,178 @@
+{
+  "workers": [
+    {
+      "id": "W001",
+      "name": "Demo Worker",
+      "language": "English",
+      "role": "Worker",
+      "score": 90,
+      "risk": "Low",
+      "completed": 2,
+      "completedModules": [
+        "M001",
+        "M002"
+      ],
+      "scores": {
+        "M001": 100,
+        "M002": 80
+      },
+      "updatedAt": "2026-09-27T09:16:00.396Z"
+    },
+    {
+      "id": "W002",
+      "name": "Rahul Verma",
+      "language": "Hindi",
+      "role": "Worker",
+      "score": 65,
+      "risk": "Medium",
+      "completed": 1,
+      "completedModules": [
+        "M001"
+      ],
+      "scores": {
+        "M001": 65
+      },
+      "updatedAt": "2026-09-27T09:15:45.385Z"
+    }
+  ],
+  "modules": [
+    {
+      "id": "M001",
+      "title": "Mine Entrance Safety",
+      "sector": "Mining",
+      "zone": "MINE-ENTRANCE",
+      "duration": "10 min",
+      "hazard": "Unprotected entry, missing PPE, and unsafe approach to a mine entrance.",
+      "ppe": [
+        "Helmet",
+        "Safety shoes",
+        "Reflective vest",
+        "Eye protection"
+      ],
+      "steps": [
+        "Wear all required PPE before entering the zone.",
+        "Check the entrance for warning signs and restricted areas.",
+        "Stay inside the marked safe path.",
+        "Report any damaged barrier or unsafe condition."
+      ],
+      "quiz": [
+        {
+          "q": "What should you do before entering the mine zone?",
+          "options": [
+            "Run inside",
+            "Wear required PPE",
+            "Remove helmet",
+            "Ignore signs"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What should be reported immediately?",
+          "options": [
+            "Damaged barriers",
+            "Clean floor",
+            "Your lunch",
+            "A normal sign"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "M002",
+      "title": "Machine Station Safety",
+      "sector": "Manufacturing",
+      "zone": "PRESS-STATION",
+      "duration": "12 min",
+      "hazard": "Machine entanglement and unsafe operation near moving equipment.",
+      "ppe": [
+        "Safety shoes",
+        "Eye protection",
+        "Gloves where permitted",
+        "Hearing protection"
+      ],
+      "steps": [
+        "Identify the machine emergency stop location.",
+        "Keep loose clothing and hair away from moving parts.",
+        "Never bypass a guard or safety interlock.",
+        "Stop machine and report abnormal vibration or noise."
+      ],
+      "quiz": [
+        {
+          "q": "What must never be bypassed on a machine station?",
+          "options": [
+            "Safety guard",
+            "Lunch break",
+            "Training screen",
+            "Name badge"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What should happen if the machine behaves abnormally?",
+          "options": [
+            "Ignore it",
+            "Increase speed",
+            "Stop and report",
+            "Touch moving parts"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "M003",
+      "title": "Gas & Emergency Response",
+      "sector": "Mining",
+      "zone": "GAS-CHECK",
+      "duration": "8 min",
+      "hazard": "Possible hazardous gas exposure (CO/Methane) and delayed emergency response.",
+      "ppe": [
+        "Helmet",
+        "Gas detector",
+        "Respiratory protection as required",
+        "Safety shoes"
+      ],
+      "steps": [
+        "Check the gas-monitoring indication before proceeding into the tunnel.",
+        "If an audible or visual alarm occurs, move to the designated safe area immediately.",
+        "Do not enter a suspected hazardous area without supervisor authorization.",
+        "Raise an emergency report immediately."
+      ],
+      "quiz": [
+        {
+          "q": "What is the correct response to a gas alarm?",
+          "options": [
+            "Move to safety immediately",
+            "Hide the alarm",
+            "Continue working",
+            "Switch off all signs"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What should be raised after an unsafe event or gas detection?",
+          "options": [
+            "Emergency report",
+            "Social post",
+            "Advertisement",
+            "Nothing"
+          ],
+          "answer": 0
+        }
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-DEMO-01",
+      "worker": "Demo Worker",
+      "type": "Hazard",
+      "location": "MINE-ENTRANCE",
+      "description": "Minor rock-fall warning barrier displaced near east tunnel entrance.",
+      "severity": "Medium",
+      "status": "Open",
+      "createdAt": "2026-09-27T08:15:45.385Z"
+    }
+  ]
+}

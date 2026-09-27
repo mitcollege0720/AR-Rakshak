@@ -3,7 +3,7 @@ const config = require("./src/config");
 const logger = require("./src/utils/logger");
 
 const server = app.listen(config.port, config.host, () => {
-  logger.info(`AR-RAKSHAK safety server listening on http://${config.host}:${config.port}`, {
+  logger.info(`AR Rakshak safety server listening on http://${config.host}:${config.port}`, {
     env: config.env,
     port: config.port
   });
@@ -13,7 +13,7 @@ const server = app.listen(config.port, config.host, () => {
 function gracefulShutdown(signal) {
   logger.info(`Received ${signal}. Starting graceful shutdown...`);
   server.close(() => {
-    logger.info("AR-RAKSHAK HTTP server closed gracefully.");
+    logger.info("AR Rakshak HTTP server closed gracefully.");
     process.exit(0);
   });
 

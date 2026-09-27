@@ -8,12 +8,12 @@ process.env.DATA_FILE = require("path").join(__dirname, "..", "data_test", "db.t
 
 const app = require("../src/app");
 
-describe("AR-RAKSHAK API & Security Test Suite", () => {
+describe("AR Rakshak API & Security Test Suite", () => {
   it("GET /api/health returns 200 and healthy status", async () => {
     const res = await request(app).get("/api/health");
     assert.strictEqual(res.status, 200);
     assert.strictEqual(res.body.success, true);
-    assert.strictEqual(res.body.data.service, "AR-RAKSHAK");
+    assert.strictEqual(res.body.data.service, "AR Rakshak");
     assert.strictEqual(res.body.data.status, "healthy");
   });
 
