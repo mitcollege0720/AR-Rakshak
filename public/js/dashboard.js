@@ -1,19 +1,18 @@
 // Supervisor Dashboard with KPI Cards, Worker Risk Table, and Incident Management
 
 const SupervisorDashboard = {
-  async render() {
+  async render(silent = false) {
     CameraManager.stopCamera();
-
     const appEl = document.getElementById("app");
-    renderLoading(appEl, "Loading supervisor metrics and compliance records...");
-
+    if (!silent) {
+      renderLoading(appEl, "Loading supervisor metrics and compliance records...");
+    }
     try {
       const [stats, workers, incidents] = await Promise.all([
         API.get("/api/dashboard"),
         API.get("/api/workers"),
         API.get("/api/incidents")
       ]);
-
       this.renderView(stats, workers, incidents);
     } catch (err) {
       renderErrorState(appEl, "Failed to load supervisor dashboard data. Please check connection.", () => {
@@ -144,7 +143,7 @@ const SupervisorDashboard = {
     try {
       await API.patch(`/api/incidents/${incidentId}/status`, { status: "Resolved" });
       showToast(`Incident ${incidentId} marked as Resolved`, "success");
-      this.render();
+      this.render(true);
     } catch (err) {
       showToast(err.message || "Failed to update incident status", "error");
     }

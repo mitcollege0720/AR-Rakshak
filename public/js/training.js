@@ -289,7 +289,27 @@ const TrainingManager = {
 
   selectAnswer(qIndex, optIndex) {
     this.answers[qIndex] = optIndex;
-    this.renderQuizQuestion();
+
+    const optionsGroup = document.querySelector(".options-group");
+    if (optionsGroup) {
+      optionsGroup.querySelectorAll(".option-btn").forEach((btn, idx) => {
+        const isSelected = idx === optIndex;
+        btn.classList.toggle("selected", isSelected);
+        btn.setAttribute("aria-checked", isSelected);
+      });
+    }
+
+    const actionBar = document.querySelector(".action-bar");
+    if (actionBar) {
+      const total = (this.currentModule?.quiz || []).length;
+      const isLast = this.quizIndex === total - 1;
+      actionBar.innerHTML = `
+        ${this.quizIndex > 0 ? `<button class="btn secondary" onclick="TrainingManager.prevQuestion()">← Previous</button>` : `<div></div>`}
+        <button class="btn green" onclick="TrainingManager.nextQuestion()">
+          ${isLast ? t("finishQuiz") : t("nextQuestion")} →
+        </button>
+      `;
+    }
   },
 
   prevQuestion() {

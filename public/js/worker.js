@@ -41,7 +41,7 @@ const WorkerManager = {
     localStorage.setItem("arr_worker", worker.id);
     StorageLayer.setCache("current_worker", worker);
     showToast(`Active worker set to ${worker.name} (${worker.id})`, "info");
-    if (typeof showHome === "function") showHome();
+    if (typeof refreshCurrentView === "function") refreshCurrentView();
   },
 
   async showWorkerSelectorModal() {

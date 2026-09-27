@@ -57,6 +57,16 @@ function updateNavButtons(activeNav) {
   });
 }
 
+function refreshCurrentView() {
+  switch (currentView) {
+    case "training": showTraining(); break;
+    case "scan": showScan(); break;
+    case "report": showReport(); break;
+    case "supervisor": showAdmin(); break;
+    default: showHome();
+  }
+}
+
 // === LANDING PAGE ===
 function showLanding() {
   CameraManager.stopCamera();

@@ -545,6 +545,5 @@ function handleLanguageChange() {
   showToastMsg(`Language: ${currentLanguage}`, "info");
   const langBtn = document.getElementById("langToggleBtn");
   if (langBtn) { const l = SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage); langBtn.textContent = l ? l.short : "EN"; }
-  const r = Router.getCurrentRoute();
-  if (r && Router.routes[r]) Router.routes[r](Router.getParams());
+  if (typeof refreshCurrentView === "function") refreshCurrentView();
 }
