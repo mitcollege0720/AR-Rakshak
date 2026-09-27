@@ -178,7 +178,7 @@ async function loadWorkerStats() {
 function showTraining() {
   CameraManager.stopCamera();
   updateNavButtons("training");
-  shell(`<div class="section-title"><div><h1>📚 ${t("availableModules")}</h1><p class="muted">Select a module to view safety guidelines, complete the AR inspection, and take the qualification q[...]
+  shell(`<div class="section-title"><div><h1>📚 ${t("availableModules")}</h1><p class="muted">Select a module to view safety guidelines, complete the AR inspection, and take the qualification quiz.</p></div></div><div id="trainingModuleList"></div>`);
   TrainingManager.renderModulesList("trainingModuleList");
 }
 
@@ -206,7 +206,7 @@ function showScan() {
     </div>
     <div class="section-title"><h3>Quick-Select Demo Safety Zones</h3></div>
     <div class="grid">
-      ${modules.map(m => `<button class="card zone-select-btn" onclick="TrainingManager.openModule('${escapeHtml(m.id)}')"><div class="zone-badge">📍 ${escapeHtml(m.zone)}</div><b>${escapeHtml([...]
+      ${modules.map(m => `<button class="card zone-select-btn" onclick="TrainingManager.openModule('${escapeHtml(m.id)}')"><div class="zone-badge">📍 ${escapeHtml(m.zone)}</div><b>${escapeHtml(m.title)}</b><div class="muted small">${escapeHtml(m.sector)} • ${escapeHtml(m.duration)}</div></button>`).join("")}
     </div>
   `);
 }
